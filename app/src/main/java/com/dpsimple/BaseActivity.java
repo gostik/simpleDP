@@ -147,7 +147,7 @@ public class BaseActivity extends ActionBarActivity {
 	 * 
 	 * Launching activity when any list item is clicked. 
 	 */
-	protected void openActivity(int position) {
+    public void openActivity(int position) {
 		
 		/**
 		 * We can set title & itemChecked here but as this BaseActivity is parent for other activity, 
