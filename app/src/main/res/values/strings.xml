@@ -18,4 +18,8 @@
     <string name="screen_three">Screen three</string>
     <string name="action_settings">Action settings</string>
 
+
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+
 </resources>
