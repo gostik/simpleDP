@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Item1Activity" />
+        <activity android:name=".CarNameListDetailActivity" />
+        <activity android:name=".CarDetailActivity"/>
+        <activity android:name=".CarDetailDescriptionActivity"/>
         <activity android:name=".Item2Activity" />
         <activity android:name=".Item3Activity" />
         <activity android:name=".Item4Activity" />

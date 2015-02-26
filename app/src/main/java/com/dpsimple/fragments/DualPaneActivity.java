@@ -3,7 +3,6 @@ package com.dpsimple.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.dpsimple.BaseActivity;
@@ -12,7 +11,7 @@ import com.dpsimple.R;
 /**
  * Created by user_sca on 26.02.2015.
  */
-public class DualPaneActivity extends BaseActivity{
+public class DualPaneActivity<LEFT extends Fragment,RIGHT  extends Fragment>  extends BaseActivity {
 
     private FrameLayout leftFrame;
     private FrameLayout rightFrame;
@@ -32,21 +31,34 @@ public class DualPaneActivity extends BaseActivity{
         setTitle(listArray[position]);
     }
 
-    public boolean isTablet(){
-        return rightFrame!=null;
-    }
-    public void setLeftFragment(StateFragment stateFragment){
-        setFragment(leftFrame.getId(),stateFragment);
+    public boolean isTablet() {
+        return rightFrame != null;
     }
 
-    public void setRightFragment(StateFragment stateFragment){
-        setFragment(rightFrame.getId(),stateFragment);
+    public void setLeftFragment(LEFT fragment) {
+        setFragment(leftFrame.getId(), fragment, "left");
     }
 
-    public void setFragment(int res_id, Fragment fragment){
+    public void setRightFragment(RIGHT fragment) {
+        setFragment(rightFrame.getId(), fragment, "right");
+    }
+
+    public void setFragment(int res_id, Fragment fragment, String tag) {
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(res_id, fragment);
+        ft.replace(res_id, fragment, tag);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
     }
+
+    public LEFT getLeftFragment(){
+       return (LEFT) getSupportFragmentManager().findFragmentByTag("left");
+    }
+
+    public RIGHT getRIGHTFragment(){
+        if (!isTablet()) return null;
+        return (RIGHT) getSupportFragmentManager().findFragmentByTag("right");
+    }
+
+
 }

@@ -162,7 +162,7 @@ public class BaseActivity extends ActionBarActivity {
 		
 		switch (position) {
 		case 0:
-			startActivity(new Intent(this, Item1Activity.class));
+			startActivity(new Intent(this, CarNameListDetailActivity.class));
 			break;
 		case 1:
 			startActivity(new Intent(this, Item2Activity.class));
@@ -222,12 +222,13 @@ public class BaseActivity extends ActionBarActivity {
     }
     
     /* We can override onBackPressed method to toggle navigation drawer*/
-//	@Override
-//	public void onBackPressed() {
+	@Override
+	public void onBackPressed() {
+        super.onBackPressed();
 //		if(mDrawerLayout.isDrawerOpen(mDrawerList)){
 //			mDrawerLayout.closeDrawer(mDrawerList);
 //		}else {
 //			mDrawerLayout.openDrawer(mDrawerList);
 //		}
-//	}
+	}
 }

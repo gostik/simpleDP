@@ -9,6 +9,9 @@ public abstract class Model {
 
     String name = "";
 
+    protected Model() {
+    }
+
     public String getName() {
         return name;
     }
