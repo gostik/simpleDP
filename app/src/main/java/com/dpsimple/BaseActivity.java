@@ -180,7 +180,8 @@ public class BaseActivity extends ActionBarActivity {
 		default:
 			break;
 		}
-		
+
+        finish();
 		Toast.makeText(this, "Selected Item Position::"+position, Toast.LENGTH_LONG).show();
 	}
 
@@ -193,8 +194,8 @@ public class BaseActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		// The action bar home/up action should open or close the drawer. 
+
+		// The action bar home/up action should open or close the drawer.
 		// ActionBarDrawerToggle will take care of this.
 		if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;

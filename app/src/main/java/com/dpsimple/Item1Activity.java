@@ -14,7 +14,7 @@ public class Item1Activity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 
-		getLayoutInflater().inflate(R.layout.activity_master_details, frameLayout);
+		getLayoutInflater().inflate(R.layout.fragment_layout, frameLayout);
 		
 		/**
 		 * Setting title and itemChecked  
