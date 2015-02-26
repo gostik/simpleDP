@@ -22,17 +22,13 @@ public class TitlesFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Populate list with our static array of titles.
         setListAdapter(new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_activated_1, stringsTitles));
 
-        // Check to see if we have a frame in which to embed the details
-        // fragment directly in the containing UI.
         View detailsFrame = getActivity().findViewById(R.id.details);
         mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
         if (savedInstanceState != null) {
-            // Restore last state for checked position.
             mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
         }
 
@@ -55,11 +51,6 @@ public class TitlesFragment extends ListFragment {
         showDetails(position);
     }
 
-    /**
-     * Helper function to show the details of a selected item, either by
-     * displaying a fragment in-place in the current UI, or starting a
-     * whole new activity in which it is displayed.
-     */
     void showDetails(int index) {
         mCurCheckPosition = index;
 

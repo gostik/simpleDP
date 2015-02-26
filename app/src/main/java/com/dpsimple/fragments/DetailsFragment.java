@@ -13,10 +13,7 @@ import android.widget.TextView;
  * Created by user_sca on 26.02.2015.
  */
 public class DetailsFragment extends Fragment {
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+
     public static DetailsFragment newInstance(int index) {
         DetailsFragment f = new DetailsFragment();
 

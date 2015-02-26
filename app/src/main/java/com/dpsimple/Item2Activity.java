@@ -17,10 +17,7 @@ public class Item2Activity extends BaseActivity {
 		 * Adding our layout to parent class frame layout.
 		 */
 		getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
-		
-		/**
-		 * Setting title and itemChecked  
-		 */
+
 		mDrawerList.setItemChecked(position, true);
 		setTitle(listArray[position]);
 		
