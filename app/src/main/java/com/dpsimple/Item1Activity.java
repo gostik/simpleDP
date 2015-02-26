@@ -20,14 +20,13 @@ public class Item1Activity extends BaseActivity {
 		/**
 		 * Adding our layout to parent class frame layout.
 		 */
-		getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
+		getLayoutInflater().inflate(R.layout.activity_master_details, frameLayout);
 		
 		/**
 		 * Setting title and itemChecked  
 		 */
 		mDrawerList.setItemChecked(position, true);
 		setTitle(listArray[position]);
-		
-		((ImageView)findViewById(R.id.image_view)).setBackgroundResource(R.drawable.image1);
+
 	}
 }

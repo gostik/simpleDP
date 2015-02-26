@@ -1,6 +1,5 @@
 package com.dpsimple;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -215,7 +214,9 @@ public class BaseActivity extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        MenuItem item = menu.findItem(R.id.action_settings);
+        item.setVisible(!drawerOpen);
+
         return super.onPrepareOptionsMenu(menu);
     }
     
