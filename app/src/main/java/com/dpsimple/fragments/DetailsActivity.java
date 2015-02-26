@@ -1,6 +1,5 @@
 package com.dpsimple.fragments;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,7 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 /**
  * Created by user_sca on 26.02.2015.
  */
-public class DetailsActivity extends ActionBarActivity {
+public class DetailsActivity<T> extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

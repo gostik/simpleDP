@@ -222,12 +222,12 @@ public class BaseActivity extends ActionBarActivity {
     }
     
     /* We can override onBackPressed method to toggle navigation drawer*/
-	@Override
-	public void onBackPressed() {
-		if(mDrawerLayout.isDrawerOpen(mDrawerList)){
-			mDrawerLayout.closeDrawer(mDrawerList);
-		}else {
-			mDrawerLayout.openDrawer(mDrawerList);
-		}
-	}
+//	@Override
+//	public void onBackPressed() {
+//		if(mDrawerLayout.isDrawerOpen(mDrawerList)){
+//			mDrawerLayout.closeDrawer(mDrawerList);
+//		}else {
+//			mDrawerLayout.openDrawer(mDrawerList);
+//		}
+//	}
 }

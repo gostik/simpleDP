@@ -1,26 +1,23 @@
 package com.dpsimple;
 
 import android.os.Bundle;
-import android.widget.ImageView;
+
+import com.dpsimple.fragments.DualPaneActivity;
+import com.dpsimple.fragments.MonthDetailFragment;
+import com.dpsimple.fragments.MonthListFragment;
 
 /**
  * @author MZ
  *
  */
-public class Item1Activity extends BaseActivity {
+public class Item1Activity extends DualPaneActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 
-		getLayoutInflater().inflate(R.layout.fragment_layout, frameLayout);
-		
-		/**
-		 * Setting title and itemChecked  
-		 */
-		mDrawerList.setItemChecked(position, true);
-		setTitle(listArray[position]);
+
 
 	}
 }
