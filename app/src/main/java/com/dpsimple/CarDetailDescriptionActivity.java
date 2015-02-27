@@ -2,7 +2,6 @@ package com.dpsimple;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 
 import com.dpsimple.fragments.CarDescriptionActivity;
@@ -22,14 +21,16 @@ public class CarDetailDescriptionActivity extends DualPaneActivity<CarDetailFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CarModel carModel= getIntent().getParcelableExtra(OBJECT);
+        CarModel carModel = getIntent().getParcelableExtra(OBJECT);
         setLeftFragment(CarDetailFragment.getInstanse(carModel));
+
+        if (isTablet())
+            setRightFragment(new CarDescriptionFragment());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
 
 
         getLeftFragment().textView.setOnClickListener(new View.OnClickListener() {

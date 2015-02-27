@@ -74,6 +74,12 @@ public class CarDetailFragment extends StateFragment<CarDetailDTOScreen> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         textView = (TextView) getView().findViewById(R.id.name);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity((CarModel) getArguments().getParcelable(OBJECT));
+            }
+        });
     }
 
     @Override
