@@ -11,7 +11,7 @@ import com.dpsimple.R;
 /**
  * Created by user_sca on 26.02.2015.
  */
-public class DualPaneActivity<LEFT extends Fragment,RIGHT  extends Fragment>  extends BaseActivity {
+public class DualPaneActivity<LEFT extends Fragment, RIGHT extends Fragment> extends BaseActivity {
 
     private FrameLayout leftFrame;
     private FrameLayout rightFrame;
@@ -32,7 +32,7 @@ public class DualPaneActivity<LEFT extends Fragment,RIGHT  extends Fragment>  ex
     }
 
     public boolean isTablet() {
-        return rightFrame != null;
+        return findViewById(R.id.right_frame) != null;
     }
 
     public void setLeftFragment(LEFT fragment) {
@@ -51,11 +51,11 @@ public class DualPaneActivity<LEFT extends Fragment,RIGHT  extends Fragment>  ex
         ft.commit();
     }
 
-    public LEFT getLeftFragment(){
-       return (LEFT) getSupportFragmentManager().findFragmentByTag("left");
+    public LEFT getLeftFragment() {
+        return (LEFT) getSupportFragmentManager().findFragmentByTag("left");
     }
 
-    public RIGHT getRIGHTFragment(){
+    public RIGHT getRIGHTFragment() {
         if (!isTablet()) return null;
         return (RIGHT) getSupportFragmentManager().findFragmentByTag("right");
     }

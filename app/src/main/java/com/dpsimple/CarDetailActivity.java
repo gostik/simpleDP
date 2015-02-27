@@ -6,12 +6,13 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.dpsimple.fragments.CarDescriptionActivity;
 import com.dpsimple.models.CarModel;
 
 /**
  * Created by user_sca on 27.02.2015.
  */
-public class CarDetailActivity extends BaseActivity{
+public class CarDetailActivity extends BaseActivity {
 
 
     public static final String OBJECT = "object";
@@ -26,7 +27,7 @@ public class CarDetailActivity extends BaseActivity{
         setContentView(textView);
         Parcelable parcelableExtra = getIntent().getParcelableExtra(OBJECT);
 
-        if (parcelableExtra!=null) {
+        if (parcelableExtra != null) {
             carModel = (CarModel) parcelableExtra;
             textView.setText(carModel.getName());
         }
@@ -40,7 +41,7 @@ public class CarDetailActivity extends BaseActivity{
     }
 
     private void startActivity(CarModel carModel) {
-        Intent intent = new Intent(this,CarDetailDescriptionActivity.class);
+        Intent intent = new Intent(this, CarDescriptionActivity.class);
         intent.putExtra(OBJECT, carModel);
 
         startActivity(intent);

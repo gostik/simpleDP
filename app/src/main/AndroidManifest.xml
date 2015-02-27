@@ -19,6 +19,8 @@
         <activity android:name=".CarNameListDetailActivity" />
         <activity android:name=".CarDetailActivity"/>
         <activity android:name=".CarDetailDescriptionActivity"/>
+        <activity android:name=".fragments.CarDescriptionActivity"/>
+
         <activity android:name=".Item2Activity" />
         <activity android:name=".Item3Activity" />
         <activity android:name=".Item4Activity" />

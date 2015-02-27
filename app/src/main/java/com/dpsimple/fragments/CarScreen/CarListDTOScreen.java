@@ -10,7 +10,7 @@ import com.dpsimple.models.CarModel;
  */
 public class CarListDTOScreen implements Parcelable {
 
-    public CarModel choosenMonth;
+    public CarModel choosenCar;
 
     @Override
     public int describeContents() {
@@ -19,14 +19,14 @@ public class CarListDTOScreen implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.choosenMonth, flags);
+        dest.writeParcelable(this.choosenCar, flags);
     }
 
     public CarListDTOScreen() {
     }
 
     private CarListDTOScreen(Parcel in) {
-        this.choosenMonth = in.readParcelable(CarModel.class.getClassLoader());
+        this.choosenCar = in.readParcelable(CarModel.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<CarListDTOScreen> CREATOR = new Parcelable.Creator<CarListDTOScreen>() {

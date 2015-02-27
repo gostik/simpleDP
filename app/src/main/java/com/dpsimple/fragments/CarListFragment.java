@@ -40,8 +40,8 @@ public class CarListFragment extends StateFragment<CarListDTOScreen> {
 
     @Override
     protected void initFromDTO(CarListDTOScreen dto) {
-        if (dto.choosenMonth != null) {
-            int i = Repo.detailModelsRepoMonth.indexOf(dto.choosenMonth);
+        if (dto.choosenCar != null) {
+            int i = Repo.detailModelsRepoMonth.indexOf(dto.choosenCar);
             listView.setSelection(i);
         }
     }
@@ -54,7 +54,7 @@ public class CarListFragment extends StateFragment<CarListDTOScreen> {
     protected CarListDTOScreen prepareDto() {
         CarModel selectedItem = (CarModel) listView.getSelectedItem();
         CarListDTOScreen carListDTOScreen = new CarListDTOScreen();
-        carListDTOScreen.choosenMonth = selectedItem;
+        carListDTOScreen.choosenCar = selectedItem;
         return carListDTOScreen;
     }
 

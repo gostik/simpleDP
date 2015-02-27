@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by user_sca on 27.02.2015.
@@ -19,7 +20,7 @@ public class CarDescriptionFragment extends StateFragment<CarDescriptionDTOScree
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         editText = new EditText(getActivity());
-
+        editText.setHint("Description");
         return editText;
     }
 
@@ -35,11 +36,12 @@ public class CarDescriptionFragment extends StateFragment<CarDescriptionDTOScree
     }
     @Override
     protected void initFromDTO(CarDescriptionDTOScreen dto) {
-        editText.setText(dto.description);
+//        editText.setText(dto.description);
     }
 
     @Override
     protected CarDescriptionDTOScreen prepareDto() {
-       return new CarDescriptionDTOScreen(editText.getText().toString());
+//       return new CarDescriptionDTOScreen(editText.getText().toString());
+        return new CarDescriptionDTOScreen("");
     }
 }

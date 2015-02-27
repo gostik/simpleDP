@@ -20,7 +20,8 @@ public class CarDetailFragment extends StateFragment<CarDetailDTOScreen> {
 
     private static final String OBJECT = "object";
     private CarDetailDTOScreen dtoScreen;
-    private TextView name;
+
+    public TextView textView;
 
     public static CarDetailFragment getInstanse(CarModel item) {
         CarDetailFragment carDetailFragment = new CarDetailFragment();
@@ -38,15 +39,8 @@ public class CarDetailFragment extends StateFragment<CarDetailDTOScreen> {
 
         if (getArguments() != null && getArguments().getParcelable(OBJECT) != null) {
             final CarModel carModel = getArguments().getParcelable(OBJECT);
-            TextView textView = (TextView) inflate.findViewById(R.id.name);
+            textView = (TextView) inflate.findViewById(R.id.name);
             textView.setText(carModel.getName());
-
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(carModel);
-                }
-            });
         }
 
         return inflate;
@@ -72,14 +66,14 @@ public class CarDetailFragment extends StateFragment<CarDetailDTOScreen> {
 
     @Override
     public void initFromDTO(CarDetailDTOScreen carDetailDTOScreen) {
-        name.setText(carDetailDTOScreen.name);
+//        if (carDetailDTOScreen != null)
+//            name.setText(carDetailDTOScreen.name);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        name = (TextView) getView().findViewById(R.id.name);
+        textView = (TextView) getView().findViewById(R.id.name);
     }
 
     @Override
