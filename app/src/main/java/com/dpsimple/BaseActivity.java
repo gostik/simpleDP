@@ -162,7 +162,7 @@ public class BaseActivity extends ActionBarActivity {
 		
 		switch (position) {
 		case 0:
-			startActivity(new Intent(this, CarNameListDetailActivity.class));
+			startActivity(new Intent(this, Item1Activity.class));
 			break;
 		case 1:
 			startActivity(new Intent(this, Item2Activity.class));

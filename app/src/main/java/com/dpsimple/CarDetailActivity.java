@@ -25,19 +25,7 @@ public class CarDetailActivity extends BaseActivity {
         TextView textView = new TextView(this);
 
         setContentView(textView);
-        Parcelable parcelableExtra = getIntent().getParcelableExtra(OBJECT);
 
-        if (parcelableExtra != null) {
-            carModel = (CarModel) parcelableExtra;
-            textView.setText(carModel.getName());
-        }
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(carModel);
-            }
-        });
     }
 
     private void startActivity(CarModel carModel) {

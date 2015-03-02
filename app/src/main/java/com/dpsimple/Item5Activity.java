@@ -22,6 +22,5 @@ public class Item5Activity extends BaseActivity {
 		mDrawerList.setItemChecked(position, true);
 		setTitle(listArray[position]);
 		
-		((ImageView)findViewById(R.id.image_view)).setBackgroundResource(R.drawable.image5);
 	}
 }
