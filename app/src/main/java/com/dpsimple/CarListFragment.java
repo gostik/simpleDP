@@ -48,8 +48,11 @@ public class CarListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bundle = new Bundle();
+                CarModel selectedItem = (CarModel) adapterView.getItemAtPosition(i);
+                bundle.putParcelable(CarDetailFragment.OBJECT,selectedItem);
                 ((Item1Activity)getActivity()).gotoFragmentWithInitialSavedState(
-                        CarDetailFragment.getInstanse((CarModel) adapterView.getItemAtPosition(i)),null);
+                        CarDetailFragment.class, bundle);
 
             }
         });
