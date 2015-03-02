@@ -13,35 +13,37 @@ import com.dpsimple.fragments.CarScreen.CarDetailDTOScreen;
 import com.dpsimple.fragments.StateFragment;
 import com.dpsimple.models.CarModel;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by user_sca on 26.02.2015.
  */
 public class CarDetailFragment extends Fragment {
 
-    private static final String OBJECT = "object";
-    public TextView textView;
 
-    public static CarDetailFragment getInstanse(CarModel item) {
-        CarDetailFragment carDetailFragment = new CarDetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(OBJECT, item);
-        carDetailFragment.setArguments(bundle);
-        return carDetailFragment;
-    }
+    public static final String OBJECT = "object";
+    private CarDetailDTOScreen dtoScreen;
+
+    public TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View inflate = inflater.inflate(R.layout.car_detail, null);
 
+        return inflate;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
 
         if (getArguments() != null && getArguments().getParcelable(OBJECT) != null) {
             final CarModel carModel = getArguments().getParcelable(OBJECT);
-            textView = (TextView) inflate.findViewById(R.id.name);
+            textView = (TextView) getView().findViewById(R.id.name);
             textView.setText(carModel.getName());
         }
-
-        return inflate;
     }
 
     private void startActivity(CarModel carModel) {
@@ -51,24 +53,6 @@ public class CarDetailFragment extends Fragment {
         startActivity(intent);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        textView = (TextView) getView().findViewById(R.id.name);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity((CarModel) getArguments().getParcelable(OBJECT));
-            }
-        });
-    }
 
 
 

@@ -4,21 +4,15 @@
     android:layout_height="match_parent">
 
     <ViewStub
-        android:id="@+id/tabletDefine"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/tabletDefine"/>
 
     <com.dpsimple.NotSwipableViewPager
         android:id="@+id/pager"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
-        <FrameLayout
-            android:id="@+id/root_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"/>
     </com.dpsimple.NotSwipableViewPager>
 
 </LinearLayout>
