@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by user_sca on 02.03.2015.
@@ -26,26 +25,33 @@ public class Item1Activity extends BaseActivity {
 
         viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
 
-        HashMap<Class<?>, Bundle> classBundleHashMap = new HashMap<>();
-
-        adapter = new DynamicFragmentPagerAdapter(getSupportFragmentManager(),this,classBundleHashMap);
+        if (getLastCustomNonConfigurationInstance() == null)
+            adapter = new DynamicFragmentPagerAdapter(
+                    getSupportFragmentManager(),
+                    this,
+                    new ArrayList<Fragment>());
+        else adapter = (DynamicFragmentPagerAdapter) getLastCustomNonConfigurationInstance();
         adapter.setIsTablet(isTablet());
         viewPager.setAdapter(adapter);
+        int i = viewPager.getAdapter().getCount() - 1;
+
+        viewPager.setCurrentItem(i);
         viewPager.setSaveEnabled(false);
         mDrawerList.setItemChecked(position, true);
 
         setTitle(listArray[position]);
     }
 
-
     private boolean isTablet() {
         return getWindow().getDecorView().findViewById(R.id.tabletDefine) != null;
     }
 
-    public void gotoFragmentWithInitialSavedState(Class fragment,  Bundle bundle) {
+    public void gotoFragmentWithInitialSavedState(Class fragment, Bundle bundle) {
 
-        getAdapter().addScreen(fragment,bundle,true);
+        getAdapter().addScreen(fragment, bundle, true);
         getAdapter().notifyDataSetChanged();
+
+        viewPager.setCurrentItem(getAdapter().getCount());
         viewPager.refreshDrawableState();
     }
 
@@ -64,12 +70,36 @@ public class Item1Activity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
 
         adapter.setIsTablet(isTablet());
-        viewPager.setCurrentItem(adapter.getCount(), true);
+        viewPager.setCurrentItem(adapter.getLastEnabledIndex(), true);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+////
+//        List<Fragment> fragmentsInManager = getSupportFragmentManager().getFragments();
+
+//        for (Fragment fragment : adapter.getEnabledScreens()) {
+//
+//            getSupportFragmentManager().putFragment(outState, fragment.getClass().toString(), fragment);
+//        }
+
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onBackPressed() {
 
+        Integer lastEnabledIndex = getAdapter().getLastEnabledIndex();
+        if (lastEnabledIndex != null) {
+            getAdapter().setEnabled(lastEnabledIndex, false);
+
+        }
         getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return adapter;
     }
 }

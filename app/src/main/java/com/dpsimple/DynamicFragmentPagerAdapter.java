@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +26,23 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
     private List<AtomicBoolean> flags = new ArrayList<AtomicBoolean>();
     private boolean isTablet;
 
-    public DynamicFragmentPagerAdapter(FragmentManager fm, Context context, List<Class<?>> screens) {
+//    public DynamicFragmentPagerAdapter(FragmentManager fm, Context context, List<Class<?>> screens) {
+//        super(fm);
+//        this.context = context;
+//
+//        for (Class<?> screen : screens)
+//            addScreen(screen, null);
+//
+//        notifyDataSetChanged();
+//    }
+
+    public DynamicFragmentPagerAdapter(FragmentManager fm, Context context, List<Fragment> fragments) {
         super(fm);
         this.context = context;
-
-        for (Class<?> screen : screens)
-            addScreen(screen, null);
-
-        notifyDataSetChanged();
+        if (fragments != null)
+            for (Fragment fragment : fragments) {
+                addScreen(fragment);
+            }
     }
 
     public DynamicFragmentPagerAdapter(FragmentManager fm, Context context, Map<Class<?>, Bundle> screens) {
@@ -45,10 +55,14 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
         notifyDataSetChanged();
     }
 
+
     public void addScreen(Class<?> clazz, Bundle args, boolean rewriteIfLastIsSame) {
         if (rewriteIfLastIsSame) {
-            if (screens.peekLast()!=null&&screens.peekLast().getClass() == clazz) {
-                setEnabled(screens.indexOf(screens.peekLast()), false);
+
+            for (Fragment screen : screens) {
+                if (screen.getClass() == clazz && isEnabled(screens.indexOf(screen)))
+                    setEnabled(screens.indexOf(screen), false);
+
             }
         }
 
@@ -60,11 +74,28 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
         flags.add(new AtomicBoolean(true));
     }
 
+    public void addScreen(Fragment fragment) {
+        screens.add(fragment);
+        flags.add(new AtomicBoolean(true));
+    }
+
+    public Integer getLastEnabledIndex() {
+        Iterator<Fragment> fragmentIterator = screens.descendingIterator();
+        while (fragmentIterator.hasNext()) {
+            Fragment next = fragmentIterator.next();
+            if (isEnabled(screens.indexOf(next)))
+                return screens.indexOf(next);
+
+        }
+
+        return null;
+    }
+
     public boolean isEnabled(int position) {
         return flags.get(position).get();
     }
 
-    private void setEnabled(int position, boolean enabled) {
+    public void setEnabled(int position, boolean enabled) {
         AtomicBoolean flag = flags.get(position);
         if (flag.get() != enabled) {
             flag.set(enabled);
@@ -107,11 +138,11 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
         try {
             super.notifyDataSetChanged();
         } catch (Exception e) {
-            Log.w("", e);
+            Log.w("error when updating", e);
         }
     }
 
-    private List<Fragment> getEnabledScreens() {
+    public List<Fragment> getEnabledScreens() {
         List<Fragment> res = new ArrayList<Fragment>();
         for (int n = 0; n < screens.size(); n++) {
             if (isEnabled(n))
@@ -144,6 +175,13 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
     @Override
     public boolean getIsTablet() {
         return isTablet;
+    }
+
+    public void invalidate(Class clazz) {
+        for (Fragment screen : screens) {
+            if (screen.getClass() == clazz)
+                setEnabled(screens.indexOf(screen), false);
+        }
     }
 
     public static interface TitledFragment {

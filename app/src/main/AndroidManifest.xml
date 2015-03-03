@@ -23,7 +23,6 @@
         <activity android:name=".Item4Activity" />
         <activity android:name=".Item5Activity" />
 
-        <activity android:name=".fragments.DetailsActivity"/>
     </application>
 
 </manifest>

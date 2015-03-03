@@ -33,6 +33,7 @@ public class CarListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -50,19 +51,12 @@ public class CarListFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
                 CarModel selectedItem = (CarModel) adapterView.getItemAtPosition(i);
-                bundle.putParcelable(CarDetailFragment.OBJECT,selectedItem);
-                ((Item1Activity)getActivity()).gotoFragmentWithInitialSavedState(
+                bundle.putParcelable(CarDetailFragment.OBJECT, selectedItem);
+                ((Item1Activity) getActivity()).gotoFragmentWithInitialSavedState(
                         CarDetailFragment.class, bundle);
 
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putInt("item_id",listView.getSelectedItemPosition());
-
-        super.onSaveInstanceState(outState);
     }
 
     private class CarsAdapter extends ArrayAdapter<CarModel> {
@@ -76,6 +70,15 @@ public class CarListFragment extends Fragment {
             TextView textView = new TextView(getContext());
             textView.setText(getItem(position).getName());
             return textView;
+
+
+
+
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }
