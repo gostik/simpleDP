@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.dpsimple.models.CarModel;
 
+import java.lang.reflect.Field;
+
 /**
  * Created by user_sca on 26.02.2015.
  */
@@ -20,6 +22,11 @@ public class CarDetailFragment extends Fragment {
     public static final String OBJECT = "object";
     public TextView textView;
     private Button btEdit;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,5 +59,20 @@ public class CarDetailFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

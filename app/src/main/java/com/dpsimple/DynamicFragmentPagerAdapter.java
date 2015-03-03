@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -26,15 +25,6 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
     private List<AtomicBoolean> flags = new ArrayList<AtomicBoolean>();
     private boolean isTablet;
 
-//    public DynamicFragmentPagerAdapter(FragmentManager fm, Context context, List<Class<?>> screens) {
-//        super(fm);
-//        this.context = context;
-//
-//        for (Class<?> screen : screens)
-//            addScreen(screen, null);
-//
-//        notifyDataSetChanged();
-//    }
 
     public DynamicFragmentPagerAdapter(FragmentManager fm, Context context, List<Fragment> fragments) {
         super(fm);
@@ -43,6 +33,8 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
             for (Fragment fragment : fragments) {
                 addScreen(fragment);
             }
+
+        notifyDataSetChanged();
     }
 
     public DynamicFragmentPagerAdapter(FragmentManager fm, Context context, Map<Class<?>, Bundle> screens) {
@@ -175,13 +167,6 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
     @Override
     public boolean getIsTablet() {
         return isTablet;
-    }
-
-    public void invalidate(Class clazz) {
-        for (Fragment screen : screens) {
-            if (screen.getClass() == clazz)
-                setEnabled(screens.indexOf(screen), false);
-        }
     }
 
     public static interface TitledFragment {

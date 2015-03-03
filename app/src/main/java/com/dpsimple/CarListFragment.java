@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.dpsimple.models.CarModel;
 import com.dpsimple.models.Repo;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -72,13 +73,22 @@ public class CarListFragment extends Fragment {
             return textView;
 
 
-
-
         }
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onDetach() {
+        super.onDetach();
+
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

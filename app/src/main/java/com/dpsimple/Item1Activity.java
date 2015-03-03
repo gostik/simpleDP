@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by user_sca on 02.03.2015.
@@ -21,25 +22,6 @@ public class Item1Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
-
-        viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
-
-        if (getLastCustomNonConfigurationInstance() == null)
-            adapter = new DynamicFragmentPagerAdapter(
-                    getSupportFragmentManager(),
-                    this,
-                    new ArrayList<Fragment>());
-        else adapter = (DynamicFragmentPagerAdapter) getLastCustomNonConfigurationInstance();
-        adapter.setIsTablet(isTablet());
-        viewPager.setAdapter(adapter);
-        int i = viewPager.getAdapter().getCount() - 1;
-
-        viewPager.setCurrentItem(i);
-        viewPager.setSaveEnabled(false);
-        mDrawerList.setItemChecked(position, true);
-
-        setTitle(listArray[position]);
     }
 
     private boolean isTablet() {
@@ -49,6 +31,7 @@ public class Item1Activity extends BaseActivity {
     public void gotoFragmentWithInitialSavedState(Class fragment, Bundle bundle) {
 
         getAdapter().addScreen(fragment, bundle, true);
+
         getAdapter().notifyDataSetChanged();
 
         viewPager.setCurrentItem(getAdapter().getCount());
@@ -62,29 +45,50 @@ public class Item1Activity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        gotoFragmentWithInitialSavedState(CarListFragment.class, null);
+
+        View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
+
+        viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
+
+        viewPager.setSaveEnabled(true);
+
+        mDrawerList.setItemChecked(position, true);
+
+        if (adapter != null) {
+            List<Fragment> enabledScreens = adapter.getEnabledScreens();
+            viewPager.setAdapter(null);
+            viewPager.setAdapter(new DynamicFragmentPagerAdapter(getSupportFragmentManager(), this, enabledScreens));
+           // viewPager.setCurrentItem(getAdapter().getCount() - 1);
+            viewPager.refreshDrawableState();
+        }
+
+        if (getAdapter() == null || getAdapter().getCount() == 0) {
+            viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
+
+            viewPager.setAdapter(new DynamicFragmentPagerAdapter(getSupportFragmentManager(), this, new HashMap<Class<?>, Bundle>()));
+
+            gotoFragmentWithInitialSavedState(CarListFragment.class, null);
+
+            getAdapter().setIsTablet(isTablet());
+
+        }
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        adapter.setIsTablet(isTablet());
-        viewPager.setCurrentItem(adapter.getLastEnabledIndex(), true);
+        getAdapter().setIsTablet(isTablet());
+        viewPager.setCurrentItem(getAdapter().getLastEnabledIndex(), true);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-////
-//        List<Fragment> fragmentsInManager = getSupportFragmentManager().getFragments();
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
 
-//        for (Fragment fragment : adapter.getEnabledScreens()) {
-//
-//            getSupportFragmentManager().putFragment(outState, fragment.getClass().toString(), fragment);
-//        }
+        adapter = (DynamicFragmentPagerAdapter) getLastCustomNonConfigurationInstance();
 
 
-        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -100,6 +104,6 @@ public class Item1Activity extends BaseActivity {
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
-        return adapter;
+        return getAdapter();
     }
 }
