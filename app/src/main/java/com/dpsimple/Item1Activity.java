@@ -58,7 +58,7 @@ public class Item1Activity extends BaseActivity {
             List<Fragment> enabledScreens = adapter.getEnabledScreens();
             viewPager.setAdapter(null);
             viewPager.setAdapter(new DynamicFragmentPagerAdapter(getSupportFragmentManager(), this, enabledScreens));
-           // viewPager.setCurrentItem(getAdapter().getCount() - 1);
+            // viewPager.setCurrentItem(getAdapter().getCount() - 1);
             viewPager.refreshDrawableState();
         }
 

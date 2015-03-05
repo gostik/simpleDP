@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 public class NotSwipableViewPager extends ViewPager {
-    private boolean mIsEnabledSwipe = true;
+    private boolean mIsEnabledSwipe = false;
 
     public NotSwipableViewPager(Context context) {
         super(context);
