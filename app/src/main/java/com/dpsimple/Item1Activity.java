@@ -22,6 +22,9 @@ public class Item1Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
+        setContentView(inflate);
+        viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
     }
 
     private boolean isTablet() {
@@ -58,7 +61,7 @@ public class Item1Activity extends BaseActivity {
             List<Fragment> enabledScreens = adapter.getEnabledScreens();
             viewPager.setAdapter(null);
             viewPager.setAdapter(new DynamicFragmentPagerAdapter(getSupportFragmentManager(), this, enabledScreens));
-           // viewPager.setCurrentItem(getAdapter().getCount() - 1);
+            // viewPager.setCurrentItem(getAdapter().getCount() - 1);
             viewPager.refreshDrawableState();
         }
 
