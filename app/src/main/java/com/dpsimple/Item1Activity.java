@@ -22,6 +22,9 @@ public class Item1Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
+        setContentView(inflate);
+        viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
     }
 
     private boolean isTablet() {
