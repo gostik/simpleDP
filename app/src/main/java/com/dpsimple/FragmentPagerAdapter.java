@@ -97,7 +97,9 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         } else {
             fragment = getItem(position);
             if (DEBUG) Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
-            mCurTransaction.add(container.getId(), fragment,
+            mCurTransaction
+                    .remove(fragment)
+                    .add(container.getId(), fragment,
                     makeFragmentName(position));
         }
         if (fragment != mCurrentPrimaryItem) {
@@ -165,4 +167,12 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     public Fragment getFragmentByPosition(int position){
         return mFragmentManager.findFragmentByTag(""+position);
     }
+
+    public void  deleteFragmentByPosition(int position){
+        mFragmentManager
+                .beginTransaction()
+                .remove(getFragmentByPosition(position))
+                .commit();
+    }
+
 }
