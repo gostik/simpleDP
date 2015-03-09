@@ -158,7 +158,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     }
 
     private static String makeFragmentName(int index) {
-        return "android "+index;
+        return ""+index;
 
     }
 

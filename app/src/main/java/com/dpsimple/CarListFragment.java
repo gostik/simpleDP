@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by user_sca on 26.02.2015.
  */
-public class CarListFragment extends Fragment {
+public class CarListFragment extends KillableFragment {
 
 
     private ListView listView;
@@ -34,7 +34,7 @@ public class CarListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setRetainInstance(true);
     }
 
     @Override
@@ -76,19 +76,4 @@ public class CarListFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        try {
-            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-            childFragmentManager.setAccessible(true);
-            childFragmentManager.set(this, null);
-
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

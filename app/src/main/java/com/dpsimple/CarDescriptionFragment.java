@@ -7,48 +7,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by user_sca on 27.02.2015.
  */
-public class CarDescriptionFragment extends Fragment{
+public class CarDescriptionFragment extends KillableFragment {
 
     public static final String OBJECT = "object";
 
     private EditText editText;
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        setRetainInstance(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        editText = new EditText(getActivity());
-        editText.setHint("Description");
-        return editText;
+        if (view == null)
+            return inflater.inflate(R.layout.description, null);
+        return view;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onPause() {
+        super.onPause();
 
-        try {
-            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-            childFragmentManager.setAccessible(true);
-            childFragmentManager.set(this, null);
-
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        view = getView();
     }
+
 
 }

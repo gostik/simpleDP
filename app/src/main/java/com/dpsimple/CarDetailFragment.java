@@ -16,24 +16,34 @@ import java.lang.reflect.Field;
 /**
  * Created by user_sca on 26.02.2015.
  */
-public class CarDetailFragment extends Fragment {
+public class CarDetailFragment extends KillableFragment {
 
 
     public static final String OBJECT = "object";
     public TextView textView;
     private Button btEdit;
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View inflate = inflater.inflate(R.layout.car_detail, null);
+        if (view == null)
+            return inflater.inflate(R.layout.car_detail, null);
+        return view;
 
-        return inflate;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        view = getView();
     }
 
     @Override
@@ -51,28 +61,13 @@ public class CarDetailFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable(CarDescriptionFragment.OBJECT,carModel);
-                    ((Item1Activity)getActivity()).gotoFragmentWithInitialSavedState(CarDescriptionFragment.class, bundle);
+                    bundle.putParcelable(CarDescriptionFragment.OBJECT, carModel);
+                    ((Item1Activity) getActivity()).gotoFragmentWithInitialSavedState(CarDescriptionFragment.class, bundle);
 
                 }
             });
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        try {
-            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-            childFragmentManager.setAccessible(true);
-            childFragmentManager.set(this, null);
-
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 }

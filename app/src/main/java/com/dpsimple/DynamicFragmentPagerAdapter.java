@@ -55,6 +55,7 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
                 if (screen.getClass() == clazz && isEnabled(screens.indexOf(screen)))
                     setEnabled(screens.indexOf(screen), false);
 
+
             }
         }
 
@@ -88,6 +89,9 @@ public class DynamicFragmentPagerAdapter extends FragmentPagerAdapter implements
     }
 
     public void setEnabled(int position, boolean enabled) {
+
+        if (screens.get(position) != null && !enabled)
+            ((KillableFragment) screens.get(position)).kill();
         AtomicBoolean flag = flags.get(position);
         if (flag.get() != enabled) {
             flag.set(enabled);

@@ -23,8 +23,11 @@ public class Item1Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
-        setContentView(inflate);
+
         viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
+//        View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
+//
+//        viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
     }
 
     private boolean isTablet() {
@@ -49,10 +52,11 @@ public class Item1Activity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
+        if (viewPager == null) {
+            View inflate = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
 
-        viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
-
+            viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
+        }
         viewPager.setSaveEnabled(true);
 
         mDrawerList.setItemChecked(position, true);
@@ -66,15 +70,16 @@ public class Item1Activity extends BaseActivity {
         }
 
         if (getAdapter() == null || getAdapter().getCount() == 0) {
-            viewPager = (NotSwipableViewPager) inflate.findViewById(R.id.pager);
+            viewPager = (NotSwipableViewPager) getWindow().getDecorView().findViewById(R.id.pager);
 
             viewPager.setAdapter(new DynamicFragmentPagerAdapter(getSupportFragmentManager(), this, new HashMap<Class<?>, Bundle>()));
 
             gotoFragmentWithInitialSavedState(CarListFragment.class, null);
 
-            getAdapter().setIsTablet(isTablet());
 
         }
+
+        getAdapter().setIsTablet(isTablet());
     }
 
     @Override
