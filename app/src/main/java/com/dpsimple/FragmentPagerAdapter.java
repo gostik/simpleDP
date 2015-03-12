@@ -159,7 +159,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     public void restoreState(Parcelable state, ClassLoader loader) {
     }
 
-    private static String makeFragmentName(int index) {
+    public static String makeFragmentName(int index) {
         return ""+index;
 
     }
